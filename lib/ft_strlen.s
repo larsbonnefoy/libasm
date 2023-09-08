@@ -13,4 +13,4 @@ __ft_strlen:
     cmp byte [rdi + rax], 0         ;checks if rax byte = 0
     jne .incr                       ;if cmp not equal to 1 loop back
 
-ret                             ;return value contained in rax
+	ret                             ;return value contained in rax

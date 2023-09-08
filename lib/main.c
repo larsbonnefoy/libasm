@@ -11,6 +11,7 @@ char *ft_strcpy_c(char *dst, const char *src);
 extern char *_ft_strcpy(char *dst, const char *src);
 
 int ft_strcmp_c(const char *s1, const char *s2);
+extern int ft_strcmp(const char *s1, const char *s2);
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
     const char *s4 = "Hello World but not the same";
     printf("%d, %d, %d, %d\n", strcmp(s,s), strcmp(s, s2), strcmp(s, s3), strcmp(s, s4));
     printf("%d, %d, %d, %d\n", ft_strcmp_c(s,s), ft_strcmp_c(s, s2), ft_strcmp_c(s, s3), ft_strcmp_c(s, s4));
+ 	printf("%d, %d, %d, %d\n", ft_strcmp(s,s), ft_strcmp(s, s2), ft_strcmp(s, s3), ft_strcmp(s, s4));
     return EXIT_SUCCESS;
 }
 
