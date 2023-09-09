@@ -3,7 +3,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 
+#define READ_BUF 10
 
 size_t ft_strlen_c(const char *s);
 extern size_t ft_strlen(const char *s);
@@ -15,6 +17,7 @@ int ft_strcmp_c(const char *s1, const char *s2);
 extern int ft_strcmp(const char *s1, const char *s2);
 
 extern ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
+extern ssize_t ft_read(int fildes, const void *buf, size_t nbyte);
 
 
 int main(void)
@@ -42,17 +45,43 @@ int main(void)
 
 
     printf("\n---- ft_write ---\n");
-    write(1, "o:  ", 4);
-    printf("    len = %d, errno = %d\n", (int)write(1, s, 11), errno);
     write(1, "a:  ", 4);
     printf("    len = %d, errno = %d\n", (int)ft_write(1, s, 11), errno);
-    printf("o:  len = %d, errno = %d\n", (int)write(3, s, 11), errno);
+    write(1, "o:  ", 4);
+    printf("    len = %d, errno = %d\n", (int)write(1, s, 11), errno);
     printf("a:  len = %d, errno = %d\n", (int)ft_write(3, s, 11), errno);
-    printf("o:  len = %d, errno = %d\n", (int)write(1, 0x0, 11), errno);
+    printf("o:  len = %d, errno = %d\n", (int)write(3, s, 11), errno);
     printf("a:  len = %d, errno = %d\n", (int)ft_write(1, 0x0, 11), errno);
-    printf("o:  len = %d, errno = %d\n", (int)write(1, s, -1), errno);
+    printf("o:  len = %d, errno = %d\n", (int)write(1, 0x0, 11), errno);
     printf("a:  len = %d, errno = %d\n", (int)ft_write(1, s, -1), errno);
+    printf("o:  len = %d, errno = %d\n", (int)write(1, s, -1), errno);
 
+    printf("\n---- ft_read ---\n");
+    char buf[READ_BUF];
+    int fildes = open("./ft_strlen.s", O_RDONLY);
+    bzero(buf, READ_BUF);
+    write(1, "a:  ", 5);
+    printf("len = %d\n", (int)ft_read(fildes, buf, READ_BUF - 1));
+    printf("->BUFFER\n%s\n", buf);
+    close(fildes);
+
+    fildes = open("./ft_strlen.s", O_RDONLY);
+    bzero(buf, READ_BUF);
+    write(1, "\no:  ", 5);
+    printf("len = %d\n", (int)read(fildes, buf, READ_BUF - 1));
+    printf("->BUFFER\n%s\n", buf);
+    close(fildes);
+    
+
+    bzero(buf, READ_BUF);
+    fildes = open("./ft_strlen.s", O_RDONLY);
+    printf("a:  len = %d, errno = %d\n", (int)ft_read(3, buf, 1), errno);
+    printf("o:  len = %d, errno = %d\n", (int)read(3, buf, 1), errno);
+    printf("a:  len = %d, errno = %d\n", (int)ft_read(fildes, NULL, 1), errno);
+    printf("o:  len = %d, errno = %d\n", (int)read(fildes, NULL, 1), errno);
+    printf("a:  len = %d, errno = %d\n", (int)ft_read(fildes, buf, -1), errno);
+    printf("o:  len = %d, errno = %d\n", (int)read(fildes, buf, -1), errno);
+    close(fildes);
     return EXIT_SUCCESS;
 }
 
