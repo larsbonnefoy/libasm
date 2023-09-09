@@ -17,7 +17,11 @@ _ft_strdup:
     mov rdi, rax            ;move len to malloc into rdi
     inc rdi                 ;+1 for null terminating byte
     call _malloc
+    cmp rax, 0              ;check if malloc returned null
+    je .end
     mov rdi, rax            ;move malloc address for strcpy
     pop rsi
     call _ft_strcpy
-    ret
+
+.end:    
+ret
