@@ -1,8 +1,8 @@
 section .text
 
-global __ft_strlen              ;global defines symbols
+global _ft_strlen              ;global defines symbols
 
-__ft_strlen:
+_ft_strlen:
     xor rax, rax
     jmp .loop
 

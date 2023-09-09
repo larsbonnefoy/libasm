@@ -2,9 +2,9 @@
 
 section .text
 
-global __ft_strcpy
+global _ft_strcpy
 
-__ft_strcpy:
+_ft_strcpy:
 
 ;xor rdi, rdi                ;clean dst
 mov rcx, -1

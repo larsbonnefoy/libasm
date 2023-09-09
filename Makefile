@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 # Define the source and object file names
 
-SRC_ASM = ft_strcmp.s ft_strcpy.s ft_strlen.s
+SRC_ASM = ft_strcmp.s ft_strcpy.s ft_strlen.s ft_write.s
 SRC_C = main.c
 
 OBJ_DIR = obj
@@ -34,10 +34,14 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 $(EXECUTABLE): $(OBJ_ASM) $(OBJ_C)
 	$(CC) $(CFLAGS) $(OBJ_ASM) $(OBJ_C) -o $@
 
+# Clean up intermediate and executable files
 clean:
 	rm -rf $(OBJ_DIR)
 
-# Clean up intermediate and executable files
 fclean: clean
 	rm -f $(EXECUTABLE)
+
+re: fclean all
+
+.PHONY: all clean fclean re
 

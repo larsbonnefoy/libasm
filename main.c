@@ -1,38 +1,58 @@
-#include <stddef.h>
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 
 size_t ft_strlen_c(const char *s);
-extern size_t _ft_strlen(const char *s);
+extern size_t ft_strlen(const char *s);
 
 char *ft_strcpy_c(char *dst, const char *src);
-extern char *_ft_strcpy(char *dst, const char *src);
+extern char *ft_strcpy(char *dst, const char *src);
 
 int ft_strcmp_c(const char *s1, const char *s2);
 extern int ft_strcmp(const char *s1, const char *s2);
 
+extern ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
+
+
 int main(void)
 {
+    printf("---- ft_strlen ---\n");
     const char *s = "Hello World";
-    printf("%lu\n", strlen(s));
-    printf("%lu\n", ft_strlen_c(s));
-    printf("%lu\n", _ft_strlen(s));
+    printf("o:  %lu\n", strlen(s));
+    printf("c:  %lu\n", ft_strlen_c(s));
+    printf("a:  %lu\n", ft_strlen(s));
 
-
+    printf("\n---- ft_strcpy ---\n");
     const char *s1 = "Hello World in strcpy";
     char dst[256];
-    printf("%s | %s\n", strcpy(dst, s1), dst);
-    printf("%s | %s\n", ft_strcpy_c(dst, s1), dst);
-    printf("%s | %s\n", _ft_strcpy(dst, s1), dst);
+    printf("o:  %s | %s\n", strcpy(dst, s1), dst);
+    printf("c:  %s | %s\n", ft_strcpy_c(dst, s1), dst);
+    printf("a:  %s | %s\n", ft_strcpy(dst, s1), dst);
 
-    const char *s2 = "Hello World";
+    printf("\n---- ft_strcmp ---\n");
+    const char *s2 = "Hello";
     const char *s3 = "meep";
-    const char *s4 = "Hello World but not the same";
-    printf("%d, %d, %d, %d\n", strcmp(s,s), strcmp(s, s2), strcmp(s, s3), strcmp(s, s4));
-    printf("%d, %d, %d, %d\n", ft_strcmp_c(s,s), ft_strcmp_c(s, s2), ft_strcmp_c(s, s3), ft_strcmp_c(s, s4));
- 	printf("%d, %d, %d, %d\n", ft_strcmp(s,s), ft_strcmp(s, s2), ft_strcmp(s, s3), ft_strcmp(s, s4));
+    const char *s4 = "Hello World but longer";
+    printf("o:  %d, %d, %d, %d\n", strcmp(s,s), strcmp(s, s2), strcmp(s, s3), strcmp(s, s4));
+    printf("c:  %d, %d, %d, %d\n", ft_strcmp_c(s,s), ft_strcmp_c(s, s2), ft_strcmp_c(s, s3), ft_strcmp_c(s, s4));
+ 	printf("a:  %d, %d, %d, %d\n", ft_strcmp(s,s), ft_strcmp(s, s2), ft_strcmp(s, s3), ft_strcmp(s, s4));
+
+
+    printf("\n---- ft_write ---\n");
+    write(1, "o:  ", 4);
+    printf("    len = %d, errno = %d\n", (int)write(1, s, 11), errno);
+    write(1, "a:  ", 4);
+    printf("    len = %d, errno = %d\n", (int)ft_write(1, s, 11), errno);
+    printf("o:  len = %d, errno = %d\n", (int)write(3, s, 11), errno);
+    printf("a:  len = %d, errno = %d\n", (int)ft_write(3, s, 11), errno);
+    printf("o:  len = %d, errno = %d\n", (int)write(1, 0x0, 11), errno);
+    printf("a:  len = %d, errno = %d\n", (int)ft_write(1, 0x0, 11), errno);
+    printf("o:  len = %d, errno = %d\n", (int)write(1, s, -1), errno);
+    printf("a:  len = %d, errno = %d\n", (int)ft_write(1, s, -1), errno);
+
     return EXIT_SUCCESS;
 }
 
