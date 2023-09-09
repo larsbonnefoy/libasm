@@ -13,7 +13,7 @@ extern char *_ft_strcpy(char *dst, const char *src);
 int ft_strcmp_c(const char *s1, const char *s2);
 extern int ft_strcmp(const char *s1, const char *s2);
 
-int main(int argc, char *argv[])
+int main(void)
 {
     const char *s = "Hello World";
     printf("%lu\n", strlen(s));
