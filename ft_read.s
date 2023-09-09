@@ -6,7 +6,6 @@ extern ___error
 ;fd -> rdi
 ;buff -> rsi
 ;buff_length -> rdx
-;check for null buff_length or buf?
 
 section .text
 
@@ -20,8 +19,8 @@ _ft_read:
 
 .error:
     mov rdx, rax                    ;save ret value to rdx
-    call ___error 
-    mov [rax], rdx   
+    call ___error                   ;returns a pointer to errno in rax register
+    mov [rax], rdx                  ;write rdx value at value pointed by rax 
     mov rax, -1
 
 .end:

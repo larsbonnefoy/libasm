@@ -19,6 +19,8 @@ extern int ft_strcmp(const char *s1, const char *s2);
 extern ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
 extern ssize_t ft_read(int fildes, const void *buf, size_t nbyte);
 
+char *ft_strdup_c(const char *s1);
+extern char *ft_strdup(const char *s1);
 
 int main(void)
 {
@@ -82,6 +84,19 @@ int main(void)
     printf("a:  len = %d, errno = %d\n", (int)ft_read(fildes, buf, -1), errno);
     printf("o:  len = %d, errno = %d\n", (int)read(fildes, buf, -1), errno);
     close(fildes);
+
+
+
+    printf("\n---- ft_strdup ---\n");
+    char *cpy = strdup(s);
+    printf("o:  org: %s | cpy: %s\n", s, cpy);
+    free((void*)cpy);
+    cpy = ft_strdup_c(s);
+    printf("c:  org: %s | cpy: %s\n", s, cpy);
+    free((void*)cpy);
+    cpy = ft_strdup(s);
+    printf("c:  org: %s | cpy: %s\n", s, cpy);
+    free((void*)cpy);
     return EXIT_SUCCESS;
 }
 
@@ -111,10 +126,21 @@ int ft_strcmp_c(const char *s1, const char *s2) {
     size_t i = 0;
 
     while (s1[i] == s2[i]) {
-        if (s1[i] == 0 || s2[i] ==  0) {                //-> if these lines ar not present we have a bus error
+        if (s1[i] == 0 || s2[i] ==  0) {        //second cond not necessary if looking atm asm
             return 0;
         }
         i++;
     }
     return (s1[i] - s2[i]);
 }
+
+char *ft_strdup_c(const char *s1) {
+    size_t len = ft_strlen(s1);
+    
+    char *ret = malloc(len + 1);
+    if (ret == NULL) {
+       return ret; 
+    }
+    ft_strcpy_c(ret, s1);
+    return ret;
+};

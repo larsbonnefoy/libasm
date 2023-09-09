@@ -9,7 +9,7 @@ _ft_strlen:
 .incr:
     inc rax
 
-.loop:                          ;counting loop 
+.loop:                              ;counting loop 
     cmp byte [rdi + rax], 0         ;checks if rax byte = 0
     jne .incr                       ;if cmp not equal to 1 loop back
 
