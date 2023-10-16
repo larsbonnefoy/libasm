@@ -45,7 +45,6 @@ int main(void)
     printf("c:  %d, %d, %d, %d\n", ft_strcmp_c(s,s), ft_strcmp_c(s, s2), ft_strcmp_c(s, s3), ft_strcmp_c(s, s4));
  	printf("a:  %d, %d, %d, %d\n", ft_strcmp(s,s), ft_strcmp(s, s2), ft_strcmp(s, s3), ft_strcmp(s, s4));
 
-
     printf("\n---- ft_write ---\n");
     write(1, "a:  ", 4);
     printf("    len = %d, errno = %d\n", (int)ft_write(1, s, 11), errno);
@@ -74,7 +73,6 @@ int main(void)
     printf("->BUFFER\n%s\n", buf);
     close(fildes);
     
-
     bzero(buf, READ_BUF);
     fildes = open("./ft_strlen.s", O_RDONLY);
     printf("a:  len = %d, errno = %d\n", (int)ft_read(3, buf, 1), errno);
@@ -84,8 +82,6 @@ int main(void)
     printf("a:  len = %d, errno = %d\n", (int)ft_read(fildes, buf, -1), errno);
     printf("o:  len = %d, errno = %d\n", (int)read(fildes, buf, -1), errno);
     close(fildes);
-
-
 
     printf("\n---- ft_strdup ---\n");
     char *cpy = strdup(s);
